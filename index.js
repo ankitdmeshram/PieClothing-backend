@@ -1,13 +1,12 @@
 // Importing necessary modules and packages
 const express = require("express");
-const serverless = require('serverless-http');
 
 const app = express();
 
 const database = require("./config/database");
 const productRoutes = require("./route/Product");
 const addressroute = require("./route/Address");
-const cartRoute = require("./route/Cart")
+const cartRoute = require("./route/Cart");
 
 const cors = require("cors");
 const dotenv = require("dotenv");
@@ -47,12 +46,8 @@ app.get("/", (req, res) => {
 
 // Listening to the server
 
-if (process.env.ENVIRONMENT === 'production') {
-  exports.handler = serverless(app);
-} else {
-  app.listen(PORT, () => {
-    console.log(`Server is listening on port ${PORT}.`);
-  });
-}
+app.listen(PORT, () => {
+  console.log(`Server is listening on port ${PORT}.`);
+});
 
 // End of code.
