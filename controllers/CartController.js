@@ -1,4 +1,5 @@
 const Cart = require("../models/Cart");
+const Product = require("../models/Product");
 
 exports.addToCart = async (req, res) => {
   try {
@@ -58,15 +59,35 @@ exports.viewCartById = async (req, res) => {
     const { uid } = req.body;
     const cartOne = await Cart.find({ uid: uid });
     console.log("cart", cartOne);
+    console.log("cart", cartOne[0]?.products[0]);
+
+    const products = await Product.find();
+    console.log(String(products[0]._id));
+    let productList = [];
+
+    // products
+
+    cartOne[0].products.map((c) => {
+      console.log("c", c);
+      products.map((p) => {
+        console.log("p", p);
+
+        if (String(c.pid) == String(p._id)) {
+          productList.push(p);
+        }
+      });
+    });
+
     return res.status(200).json({
       success: true,
       message: "Cart found successfully",
-      cartOne,
+      cart: cartOne,
+      productList,
     });
   } catch (err) {
     return res.status(504).json({
       success: false,
-      message: "Something went wrong",
+      message: `Something went wrong ${err}`,
     });
   }
 };
