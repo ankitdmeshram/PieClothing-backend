@@ -11,10 +11,37 @@ exports.addToCart = async (req, res) => {
     console.log("cart = ", cartOne, cartOne[0]?.products, typeof cartOne);
     let CartDetails;
     if (cartOne.length > 0) {
+      let flag = 0;
+      const duCart = cartOne[0]?.products.filter((pro) => {
+        if (pid == pro.pid) {
+          pro.quantity = pro.quantity + 1;
+          flag = 1;
+        }
+        return pro;
+      });
+
+      if (flag == 1) {
+        CartDetails = await Cart.updateOne(
+          { uid: uid },
+          {
+            $set: {
+              products: duCart,
+            },
+          }
+        );
+        return res.status(200).json({
+          success: true,
+          message: "Added To Cart Successfully",
+          CartDetails,
+          cartOne,
+        });
+      }
+
       cartOne[0]?.products.push({
         pid: pid,
         size: size,
         color: color,
+        quantity: 1,
       });
 
       CartDetails = await Cart.updateOne(
@@ -32,6 +59,7 @@ exports.addToCart = async (req, res) => {
             pid: pid,
             size: size,
             color: color,
+            quantity: 1,
           },
         ],
         uid: uid,
