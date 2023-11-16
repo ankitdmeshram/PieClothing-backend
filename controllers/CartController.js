@@ -1,5 +1,6 @@
 const Cart = require("../models/Cart");
 const Product = require("../models/Product");
+const User = require("../models/User");
 
 exports.addToCart = async (req, res) => {
   try {
@@ -86,12 +87,21 @@ exports.viewCartById = async (req, res) => {
   try {
     const { uid } = req.body;
     const cartOne = await Cart.find({ uid: uid });
-    // console.log("cart", cartOne);
-    // console.log("cart", cartOne[0]?.products[0]);
+    let productList = [];
+
+    if (cartOne.length == 0) {
+      return res.status(200).json({
+        success: true,
+        message: "Cart found successfully",
+        cart: cartOne,
+        productList,
+      });
+    }
+
+    console.log("cartone ===", cartOne);
 
     const products = await Product.find();
-    // console.log(String(products[0]._id));
-    let productList = [];
+    console.log("products =", products);
 
     cartOne[0].products.map((c) => {
       products.map((p) => {
@@ -155,6 +165,40 @@ exports.DeleteCartById = async (req, res) => {
     return res.status(504).json({
       success: false,
       messge: `Something went wrong ${err}`,
+    });
+  }
+};
+
+exports.viewCart = async (req, res) => {
+  try {
+    let cartDetails = await Cart.find();
+
+    let cartU = cartDetails.filter((cart) => cart.products.length > 0);
+
+    let user;
+    console.log("lentgh", cartU.length);
+    for (let i = 0; i < cartU.length; i++) {
+      try {
+        user = await User.findOne({ _id: cartU[i].uid });
+        cartU[i] = {
+          ...cartU[i]._doc,
+          userDetails: user,
+        };
+      } catch (err) {
+        console.log("no user");
+      }
+      console.log("cart u id", cartU[i].userDetails);
+    }
+
+    res.status(200).json({
+      success: true,
+      cartDetails: cartU,
+      user,
+    });
+  } catch (err) {
+    return res.status(504).json({
+      success: false,
+      message: `Something went wrong ${err}`,
     });
   }
 };
