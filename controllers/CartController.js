@@ -8,7 +8,7 @@ exports.addToCart = async (req, res) => {
 
     const cartOne = await Cart.find({ uid: uid });
 
-    console.log("cart = ", cartOne, cartOne[0]?.products, typeof cartOne);
+    // console.log("cart = ", cartOne, cartOne[0]?.products, typeof cartOne);
     let CartDetails;
     if (cartOne.length > 0) {
       let flag = 0;
@@ -67,7 +67,7 @@ exports.addToCart = async (req, res) => {
       });
     }
 
-    console.log(CartDetails);
+    // console.log(CartDetails);
     return res.status(200).json({
       success: true,
       message: "Added To Cart Successfully",
@@ -90,7 +90,7 @@ exports.viewCartById = async (req, res) => {
     // console.log("cart", cartOne[0]?.products[0]);
 
     const products = await Product.find();
-    console.log(String(products[0]._id));
+    // console.log(String(products[0]._id));
     let productList = [];
 
     cartOne[0].products.map((c) => {
@@ -121,19 +121,19 @@ exports.viewCartById = async (req, res) => {
 
 exports.DeleteCartById = async (req, res) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
     const { uid, pid } = req.body;
 
     const cartOne = await Cart.find({ uid: uid });
 
-    console.log("cartone", cartOne);
+    // console.log("cartone", cartOne);
 
     let proCart = cartOne[0]?.products.filter((product) => {
-      console.log(product);
+      // console.log(product);
       return product?.pid != pid;
     });
 
-    console.log(proCart);
+    // console.log(proCart);
 
     CartDetails = await Cart.updateOne(
       { uid: uid },
@@ -151,7 +151,7 @@ exports.DeleteCartById = async (req, res) => {
       proCart,
     });
   } catch (err) {
-    console.log("Something went wrong", err);
+    // console.log("Something went wrong", err);
     return res.status(504).json({
       success: false,
       messge: `Something went wrong ${err}`,

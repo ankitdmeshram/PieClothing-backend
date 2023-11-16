@@ -53,7 +53,7 @@ exports.createProduct = async (req, res) => {
       created_date: created_date,
       updated_date: updated_date,
     });
-    console.log(ProductDetails);
+    // console.log(ProductDetails);
     return res.status(200).json({
       success: true,
       message: "Product Added Successfully",
@@ -109,16 +109,16 @@ exports.updateProduct = async (req, res) => {
         message: "Name and Price fields are required",
       });
     }
-    console.log("Product Id", _id);
+    // console.log("Product Id", _id);
     const product = await Product.findByIdAndUpdate(_id, body);
-    console.log(product, "product");
+    // console.log(product, "product");
     return res.status(200).json({
       success: true,
       message: "Product Found Successfully",
       body,
     });
   } catch (error) {
-    console.log("error", error);
+    // console.log("error", error);
     return res.status(500).json({
       success: false,
       message: error.message,
@@ -130,7 +130,7 @@ exports.singleProduct = async (req, res) => {
   try {
     const _id = req.body._id;
     const product = await Product.findById(_id);
-    console.log(product, "product");
+    // console.log(product, "product");
     return res.status(200).json({
       success: true,
       message: "Product Found Successfully",
@@ -142,7 +142,7 @@ exports.singleProduct = async (req, res) => {
 exports.deleteProduct = async (req, res) => {
   try {
     const id = req.body._id;
-    console.log(id);
+    // console.log(id);
     const product = await Product.findById({ _id: id });
     if (!product) {
       return res.status(404).json({
@@ -156,7 +156,7 @@ exports.deleteProduct = async (req, res) => {
       message: "Product deleted successfully",
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).json({
       success: false,
       message: "Product Cannot be deleted successfully",

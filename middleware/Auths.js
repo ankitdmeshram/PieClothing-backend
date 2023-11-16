@@ -14,7 +14,7 @@ const jwt  = require("jsonwebtoken");
 
             try{
                 const payload = jwt.verify(token, process.env.JWT_SECRET);
-                  console.log(payload);
+                //   console.log(payload);
                   req.user = payload;
             } catch(error){
                  return res.status(401).json({
