@@ -101,38 +101,35 @@ exports.login = async (req, res) => {
         message: "password not match",
       });
     }
-
-    //// comment
-    // if (await bcrypt.compare(password, user.password)) {
-    //   let token = jwt.sign(payload, process.env.JWT_SECRET, {
-    //     expiresIn: "2h",
-    //   });
-
-    //   userDetails = user.toObject();
-    //   userDetails.token = token;
-    //   userDetails.password = undefined;
-    //   const options = {
-    //     expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
-    //     httpOnly: true,
-    //   };
-
-    //   res.cookie("token", token, options).status(200).json({
-    //     success: true,
-    //     token,
-    //     userDetails,
-    //     message: "user logged in successfully",
-    //   });
-    // } else {
-    //   return res.status(403).json({
-    //     success: false,
-    //     message: "password not match",
-    //   });
-    // }
   } catch (error) {
     console.log(error);
     return res.status(500).json({
       success: false,
       message: "login failure",
+    });
+  }
+};
+
+exports.checkIsAdmin = async (req, res) => {
+  try {
+    const uid = req.body.uid;
+    const userDetail = await User.findById(uid);
+    console.log(userDetail);
+
+    if (userDetail?.AccountType == "admin") {
+      return res.status(200).json({
+        success: true,
+      });
+    } else {
+      return res.status(200).json({
+        success: false,
+      });
+    }
+  } catch (err) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: "something went wrong",
     });
   }
 };
