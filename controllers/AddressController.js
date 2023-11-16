@@ -43,7 +43,7 @@ exports.createAddress = async (req, res) => {
         pin:pin,
         state:state,
     });
-    console.log(AddressDetails);
+    // console.log(AddressDetails);
     return res.status(200).json({
       success: true,
       message: "Address create  Successfully",
@@ -81,7 +81,7 @@ exports.updateAddress= async (req, res) => {
 exports.deleteAddress = async (req, res) => {
   try {
     const id = req.body._id
-    console.log(id)
+    // console.log(id)
     const address = await Address.findById({ _id: id })
     if (!address) {
       return res.status(404).json({
@@ -96,7 +96,7 @@ exports.deleteAddress = async (req, res) => {
     })
   }
   catch (error) {
-    console.log(error)
+    // console.log(error)
     res.status(500).json({
       success: false,
       message: "Product Cannot be deleted successfully"

@@ -44,7 +44,7 @@ exports.signup = async (req, res) => {
       message: "user create successfully",
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return res.status(500).json({
       success: false,
       message: "user can not create",
@@ -102,7 +102,7 @@ exports.login = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return res.status(500).json({
       success: false,
       message: "login failure",
@@ -114,7 +114,7 @@ exports.checkIsAdmin = async (req, res) => {
   try {
     const uid = req.body.uid;
     const userDetail = await User.findById(uid);
-    console.log(userDetail);
+    // console.log(userDetail);
 
     if (userDetail?.AccountType == "admin") {
       return res.status(200).json({
@@ -126,7 +126,7 @@ exports.checkIsAdmin = async (req, res) => {
       });
     }
   } catch (err) {
-    console.log(error);
+    // console.log(error);
     return res.status(500).json({
       success: false,
       message: "something went wrong",
