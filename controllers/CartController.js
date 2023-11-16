@@ -86,20 +86,21 @@ exports.viewCartById = async (req, res) => {
   try {
     const { uid } = req.body;
     const cartOne = await Cart.find({ uid: uid });
-    console.log("cart", cartOne);
-    console.log("cart", cartOne[0]?.products[0]);
+    // console.log("cart", cartOne);
+    // console.log("cart", cartOne[0]?.products[0]);
 
     const products = await Product.find();
     console.log(String(products[0]._id));
     let productList = [];
 
     cartOne[0].products.map((c) => {
-      console.log("c", c);
       products.map((p) => {
-        console.log("p", p);
-
         if (String(c.pid) == String(p._id)) {
-          productList.push(p);
+          let temp = {
+            ...p._doc,
+            quantity: c.quantity,
+          };
+          productList.push(temp);
         }
       });
     });
