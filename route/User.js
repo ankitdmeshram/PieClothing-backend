@@ -6,6 +6,8 @@ const {
   login,
   signup,
   checkIsAdmin,
+  allUser,
+  deleteUser,
 } = require("../controllers/UserController");
 const { auths, isUser, isAdmin } = require("../middleware/Auths");
 
@@ -34,5 +36,7 @@ router.get("/admin", auths, isAdmin, (req, res) => {
 });
 
 router.post("/isadmin", checkIsAdmin);
+router.post("/alluser", allUser);
+router.post("/deleteuser", deleteUser);
 
 module.exports = router;

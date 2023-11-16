@@ -5,11 +5,14 @@ const {
   viewCartById,
   DeleteCartById,
   viewCart,
+  DeleteCartByIdAdmin
 } = require("../controllers/CartController");
 
 router.post("/addtocart", addToCart);
 router.post("/viewcart", viewCartById);
 router.post("/deletecart", DeleteCartById);
 router.post("/viewallcart", viewCart);
+router.post("/deletecartbyidadmin", DeleteCartByIdAdmin);
+
 
 module.exports = router;

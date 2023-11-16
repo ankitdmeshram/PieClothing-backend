@@ -133,3 +133,36 @@ exports.checkIsAdmin = async (req, res) => {
     });
   }
 };
+
+exports.allUser = async (req, res) => {
+  try {
+    const userData = await User.find();
+    res.status(200).json({
+      success: true,
+      userData,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: "something went wrong",
+    });
+  }
+};
+
+exports.deleteUser = async (req, res) => {
+  try {
+    const _id = req.body;
+    await User.findByIdAndDelete(_id);
+    res.status(200).json({
+      success: true,
+      message: "User Deleted Successfully ",
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      success: false,
+      message: "something went wrong",
+      err,
+    });
+  }
+};

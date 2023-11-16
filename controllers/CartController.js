@@ -202,3 +202,27 @@ exports.viewCart = async (req, res) => {
     });
   }
 };
+
+exports.DeleteCartByIdAdmin = async (req, res) => {
+  try {
+    const { id } = req.body;
+
+    const cart = await Cart.findById(id);
+    if (!cart) {
+      return res.status(404).json({
+        success: false,
+        message: "Cart not found",
+      });
+    }
+    await Cart.findByIdAndDelete({ _id: id });
+    res.status(200).json({
+      success: true,
+      message: "Cart deleted successfully",
+    });
+  } catch (err) {
+    return res.status(504).json({
+      success: false,
+      messge: `Something went wrong ${err}`,
+    });
+  }
+};
