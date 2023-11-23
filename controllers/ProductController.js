@@ -1,3 +1,17 @@
+const multer = require("multer");
+const path = require("path");
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/"); // Set the destination folder for uploaded files
+  },
+  filename: function (req, file, cb) {
+    const ext = path.extname(file.originalname);
+    cb(null, `${Date.now()}${ext}`); // Set a unique filename for each uploaded file
+  },
+});
+
+// Create multer instance with the storage configuration
+const upload = multer({ storage: storage });
 const Product = require("../models/Product");
 
 exports.allProducts = async (req, res) => {
@@ -166,4 +180,15 @@ exports.deleteProduct = async (req, res) => {
       message: "Product Cannot be deleted successfully",
     });
   }
+};
+
+exports.imgUpload = upload.array("images", 50);
+
+exports.productImg = (req, res) => {
+  // console.log(req.body.img);
+  const img = req.body.img;
+
+  res.send(`
+      <img src="/uploads/1700709880791.jpeg">
+  `);
 };

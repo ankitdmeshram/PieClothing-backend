@@ -30,6 +30,9 @@ app.use(
   })
 );
 
+//images
+app.use("/imgs", express.static("uploads"));
+
 // Setting up routes
 app.use("/api/product/", productRoutes);
 app.use("/api/auth/", router);
