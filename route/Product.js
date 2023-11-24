@@ -19,6 +19,7 @@ router.post("/uploadimg", imgUpload, (req, res) => {
 
     console.log("Image Uplaod");
     return res.status(200).json({
+      success: true,
       message: "File uploaded successfully",
       filename: filenames,
     });
