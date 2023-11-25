@@ -20,6 +20,9 @@ const productSchema = new mongoose.Schema({
   description: {
     type: String,
   },
+  washcare: {
+    type: String
+  },
   size: [
     {
       type: Object,
