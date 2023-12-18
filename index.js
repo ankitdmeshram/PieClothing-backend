@@ -7,6 +7,7 @@ const database = require("./config/database");
 const productRoutes = require("./route/Product");
 const addressroute = require("./route/Address");
 const cartRoute = require("./route/Cart");
+const orderRoute = require("./route/Order");
 
 const cors = require("cors");
 const dotenv = require("dotenv");
@@ -38,6 +39,7 @@ app.use("/api/product/", productRoutes);
 app.use("/api/auth/", router);
 app.use("/api/address/", addressroute);
 app.use("/api/cart/", cartRoute);
+app.use("/api/order/", orderRoute);
 
 // Testing the server
 app.get("/", (req, res) => {
