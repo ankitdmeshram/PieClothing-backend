@@ -5,6 +5,31 @@ const cartSchema = new mongoose.Schema({
     type: String,
     // default: mongoose.Types.ObjectId(),
   },
+  orderId: {
+    type: String,
+  },
+  amountPaid: {
+    type: String,
+  },
+  amountRemaining: {
+    type: String,
+  },
+  name: {
+    type: String,
+  },
+  email: {
+    type: String,
+  },
+  phone: {
+    type: String,
+  },
+  deliveryAdd: {
+    type: {},
+  },
+
+  cartId: {
+    type: String,
+  },
   products: [],
   uid: {
     type: String,
@@ -22,4 +47,4 @@ const cartSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Cart", cartSchema);
+module.exports = mongoose.model("Order", cartSchema);

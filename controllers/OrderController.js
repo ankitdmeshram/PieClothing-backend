@@ -31,9 +31,35 @@ exports.createOrder = async (req, res) => {
   }
 };
 
-exports.orderCreate = async (req, res) => {
+exports.orderData = async (req, res) => {
   try {
-    const {} = req.body;
+    const {
+      order_id,
+      amountPaid,
+      amountRemaining,
+      name,
+      email,
+      phone,
+      deliveryAdd,
+      cartList,
+      cartId,
+      uid,
+    } = req.body;
+
+    if (!cartId && !uid) {
+      res.status(500).json({
+        success: false,
+        message: "Cart Id and User Id are required fields",
+      });
+    }
+
+    const order = await Order.create({ cartId, uid });
+
+    res.status(200).json({
+      success: true,
+      order,
+      message: "Order created successfully",
+    });
   } catch (err) {
     console.log("Something went wrong!");
   }
