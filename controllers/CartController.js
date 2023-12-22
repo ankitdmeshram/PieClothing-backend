@@ -110,6 +110,7 @@ exports.viewCartById = async (req, res) => {
             ...p._doc,
             quantity: c?.quantity,
             size: c?.size,
+            color: c?.color,
           };
           productList.push(temp);
         }
@@ -155,6 +156,8 @@ exports.viewCartByCartId = async (req, res) => {
           let temp = {
             ...p._doc,
             quantity: c.quantity,
+            size: c?.size,
+            color: c?.color,
           };
           productList.push(temp);
         }
