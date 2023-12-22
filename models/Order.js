@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const cartSchema = new mongoose.Schema({
+const orderSchema = new mongoose.Schema({
   id: {
     type: String,
     // default: mongoose.Types.ObjectId(),
@@ -26,7 +26,9 @@ const cartSchema = new mongoose.Schema({
   deliveryAdd: {
     type: {},
   },
-
+  status: {
+    type: String,
+  },
   cartId: {
     type: String,
   },
@@ -47,4 +49,4 @@ const cartSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Order", cartSchema);
+module.exports = mongoose.model("Order", orderSchema);
