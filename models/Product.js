@@ -21,7 +21,7 @@ const productSchema = new mongoose.Schema({
     type: String,
   },
   washcare: {
-    type: String
+    type: String,
   },
   size: [
     {
@@ -38,7 +38,7 @@ const productSchema = new mongoose.Schema({
     required: true,
   },
   offerPrice: {
-    type: String,
+    type: Number,
   },
   gallery: [
     {
